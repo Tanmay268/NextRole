@@ -6,7 +6,7 @@ formatted Excel file, and track your cold-outreach pipeline end-to-end.
 ## 📁 Project Structure
 
 ```
-linkedin_tracker/
+NextRole/
 ├── cli.py                        ← Entry point  (run all commands from here)
 ├── requirements.txt
 ├── README.md
@@ -28,7 +28,7 @@ linkedin_tracker/
 
 ```bash
 # 1. Unzip & enter folder
-unzip NextRole.zip && cd linkedin_tracker
+unzip NextRole.zip
 
 # 2. Create virtual environment (recommended)
 python -m venv venv
