@@ -1,5 +1,3 @@
-# 🔗 LinkedIn Job Scraper & Outreach Tracker
-
 A production-ready CLI tool to scrape LinkedIn job listings, store them in a
 formatted Excel file, and track your cold-outreach pipeline end-to-end.
 

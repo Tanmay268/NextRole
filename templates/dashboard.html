@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkedIn Tracker Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">LinkedIn Tracker</p>
+        <h1>Scrape, review, and update the Excel tracker from one synced dashboard.</h1>
+        <p class="hero-copy">Start a scrape with the exact keyword, location, and filter flags you want. The summary cards, live table, and Excel workbook all refresh from the same data source.</p>
+      </div>
+      <a class="download-link" href="/download/excel">Download Excel</a>
+    </header>
+
+    <section class="panel controls-panel">
+      <div class="section-heading">
+        <h2>Scrape Controls</h2>
+        <p>Buttons here start the scraper and stream new rows into the workbook.</p>
+      </div>
+      <form id="scrape-form" class="grid-form">
+        <label>
+          <span>Keyword</span>
+          <input name="keyword" placeholder="SDE Intern" required>
+        </label>
+        <label>
+          <span>Location</span>
+          <input name="location" placeholder="India, Bangalore, Remote">
+        </label>
+        <label>
+          <span>Geo ID</span>
+          <input name="geo_id" placeholder="Optional LinkedIn geoId">
+        </label>
+        <label>
+          <span>Job Type</span>
+          <select name="job_type">
+            <option value="">All</option>
+            <option value="internship">Internship</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+            <option value="contract">Contract</option>
+            <option value="temporary">Temporary</option>
+            <option value="volunteer">Volunteer</option>
+          </select>
+        </label>
+        <label>
+          <span>Work Mode</span>
+          <select name="work_mode">
+            <option value="">All</option>
+            <option value="remote">Remote</option>
+            <option value="onsite">On-site</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+        </label>
+        <label>
+          <span>Date Posted</span>
+          <select name="date_posted">
+            <option value="">Any time</option>
+            <option value="past-24h">Past 24h</option>
+            <option value="past-week">Past week</option>
+            <option value="past-month">Past month</option>
+          </select>
+        </label>
+        <label>
+          <span>Max Pages</span>
+          <input name="max_pages" type="number" min="1" max="25" value="3">
+        </label>
+        <label>
+          <span>Max Results</span>
+          <input name="max_results" type="number" min="1" max="500" value="100">
+        </label>
+        <label class="checkbox-field">
+          <input name="cards_only" type="checkbox">
+          <span>Cards only</span>
+        </label>
+        <label class="checkbox-field">
+          <input name="no_cookies" type="checkbox">
+          <span>Ignore cookies</span>
+        </label>
+        <div class="button-row">
+          <button type="submit" id="start-scrape">Start Scrape</button>
+          <button type="button" id="refresh-dashboard" class="secondary">Refresh Data</button>
+        </div>
+      </form>
+      <div class="scrape-status">
+        <div>
+          <p class="status-label">Scrape Status</p>
+          <h3 id="scrape-message">Ready to scrape.</h3>
+        </div>
+        <div class="scrape-metrics">
+          <div><span>Page</span><strong id="scrape-page">0</strong></div>
+          <div><span>Seen</span><strong id="scrape-total">0</strong></div>
+          <div><span>Written</span><strong id="scrape-written">0</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-grid" id="summary-grid"></section>
+
+    <section class="panel table-panel">
+      <div class="section-heading">
+        <h2>Tracker Data</h2>
+        <p>The rows below come directly from the workbook and refresh while scraping is in progress.</p>
+      </div>
+      <form id="filter-form" class="table-filters">
+        <input name="search" placeholder="Search role, company, description, notes">
+        <input name="location" placeholder="Filter location">
+        <input name="job_type" placeholder="Filter job type">
+        <input name="work_mode" placeholder="Filter work mode">
+        <select name="status">
+          <option value="">All statuses</option>
+          {% for status in status_options %}
+          <option value="{{ status }}">{{ status }}</option>
+          {% endfor %}
+        </select>
+      </form>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Role</th>
+              <th>Company</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Dates</th>
+              <th>Links</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobs-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <template id="summary-card-template">
+    <article class="summary-card">
+      <p class="summary-label"></p>
+      <h3 class="summary-value"></h3>
+      <p class="summary-meta"></p>
+    </article>
+  </template>
+
+  <script>
+    window.STATUS_OPTIONS = {{ status_options|tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
