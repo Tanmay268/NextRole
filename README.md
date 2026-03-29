@@ -6,7 +6,7 @@ formatted Excel file, and track your cold-outreach pipeline end-to-end.
 ## 📁 Project Structure
 
 ```
-NextRole/
+NextRole-main/
 ├── cli.py                        ← Entry point  (run all commands from here)
 ├── requirements.txt
 ├── README.md
@@ -28,7 +28,7 @@ NextRole/
 
 ```bash
 # 1. Unzip & enter folder
-unzip NextRole.zip
+unzip NextRole.zip && cd NextRole-main
 
 # 2. Create virtual environment (recommended)
 python -m venv venv
