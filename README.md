@@ -28,7 +28,7 @@ linkedin_tracker/
 
 ```bash
 # 1. Unzip & enter folder
-unzip linkedin_tracker_tool.zip && cd linkedin_tracker
+unzip NextRole.zip && cd linkedin_tracker
 
 # 2. Create virtual environment (recommended)
 python -m venv venv
