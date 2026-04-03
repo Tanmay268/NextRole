@@ -32,7 +32,7 @@ unzip NextRole.zip && cd NextRole-main
 
 # 2. Create virtual environment (recommended)
 python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
+source venv/bin/activate          # Windows: source venv/Scripts/activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
