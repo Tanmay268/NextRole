@@ -65,6 +65,8 @@ Adding your `li_at` cookie typically raises this to **25+ per page**.
 > Never share it. The file is local and never uploaded anywhere.
 
 ---
+## For Website Use
+python cli.py web
 
 ## 🚀 CLI Commands
 
